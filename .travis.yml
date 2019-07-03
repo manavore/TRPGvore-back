@@ -6,7 +6,4 @@ cache:
   directories:
     - "node_modules"
     
-before_script: cd express/src
-
-script:
-  - echo "n.n yuuuuuhhh"
+before_install: cd express/src
