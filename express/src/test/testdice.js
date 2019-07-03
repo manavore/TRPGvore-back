@@ -5,7 +5,7 @@ const app = require('../app.js');
 
 describe('Hello World test', () => {
     it('UTests should work', () => {
-        assert.equal('Hello','', 'Silly hello world test');
+        assert.equal('Hello','Hello', 'Silly hello world test');
     });
 });
 

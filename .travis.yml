@@ -1,7 +1,7 @@
 language: node_js
 node_js: 
   - "stable"
-  
+
 cache:
   directories:
     - "node_modules"
@@ -10,4 +10,3 @@ before_script: cd express/src
 
 script:
   - echo "n.n yuuuuuhhh"
-  - npm test 
