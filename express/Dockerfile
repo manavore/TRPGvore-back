@@ -10,5 +10,7 @@ RUN npm install
 
 COPY src /opt/app
 
+RUN npm test
+
 # Change this to node start, atm doesn't work because reasons :/
 CMD [ "node","/opt/app/app.js" ]
