@@ -89,3 +89,6 @@ typings/
 .dynamodb/
 
 # End of https://www.gitignore.io/api/node
+
+# Removing this odd data from docker-compose 
+data/

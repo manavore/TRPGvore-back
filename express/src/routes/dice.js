@@ -1,5 +1,5 @@
 /**
- * @fileoverview Entrypoint of this app
+ * @fileoverview Route of dice
  * @author Póvoa Tiago
  */
 
