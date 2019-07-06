@@ -4,11 +4,11 @@ WORKDIR /opt/app
 
 LABEL authors = "Tiago Povoa"
 
-COPY src/package.json /opt/app
+COPY express/src/package.json /opt/app
 
 RUN npm install
 
-COPY src /opt/app
+COPY express/src /opt/app
 
 RUN npm test
 
