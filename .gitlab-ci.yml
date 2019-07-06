@@ -1,0 +1,17 @@
+variables:
+  CONTAINER_RELEASE_NAME: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
+
+stages:
+  - build
+
+build_node_js_application:
+  stage: build
+  image: docker:stable
+  services:
+    - docker:dind
+  tag:
+    - docker
+  script:
+    - docker pull $CONTAINER_RELEASE_NAME || true
+    - docker build --cache-from $CONTAINER_RELEASE_NAME --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA -f express/Dockerfile .
+    - docker push $CONTAINER_RELEASE_NAME
