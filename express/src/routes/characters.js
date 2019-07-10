@@ -26,8 +26,9 @@ router.get('/:characterid', (req,res) => {
 
 router.post('/', (req, res) => {
     const name = req.body.name;
+    const details = req.body.details;
 
-    const newCharacter = new Character({name});
+    const newCharacter = new Character({name, details});
 
     newCharacter.save()
         .then(() => res.status(201).json('Character added!'))
@@ -51,5 +52,12 @@ router.delete('/:characterid', (req,res) => {
         .catch(err => res.status(400).json(`Error: ${err}`)); // todo maybe the error is too explicit, should be 404 ?
 
 });
+
+/*
+const details = require('./details');
+
+router.use('/cat/details', details);
+ * 
+ */
 
 module.exports = router;

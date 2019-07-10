@@ -14,6 +14,10 @@ const characterSchema = new Schema(
       required: true,
       trim: true,
       minlength: 3
+    },
+    details: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Character',
     }
   },
   {
