@@ -8,6 +8,7 @@ const app = express();
 
 const cors = require("cors");
 const mongoose = require('mongoose'); 
+var helmet = require('helmet');
 
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
@@ -29,14 +30,17 @@ db.once('open', function() {
 /**
  * Middleware section
  */
+app.use(helmet());
 app.use(cors());
 
 /**
  * Routes section
  */
 const dice = require('./routes/dice');
+const users = require('./routes/users');
 const characters = require('./routes/characters');
 
+app.use('/auth', users);
 app.use('/api/dice', dice);
 app.use('/api/characters', characters);
 

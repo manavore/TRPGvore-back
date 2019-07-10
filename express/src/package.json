@@ -19,9 +19,11 @@
   },
   "homepage": "https://github.com/manavore/TRPGvore-back#readme",
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "chance": "^1.0.18",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "helmet": "^3.18.0",
     "mongoose": "^5.6.3"
   },
   "devDependencies": {
