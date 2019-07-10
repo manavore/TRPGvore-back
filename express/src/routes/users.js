@@ -12,15 +12,35 @@ const saltRounds = 10;
 
 const User = require('../models/user');
 
-router.get('/', (req,res) => {
+router.get('/', (req,res) => { // todo remove it because it's sneaky dangerous x)
     User.find()
         .then(c => res.json(c))
         .catch(err => res.status(400).json(`Error: ${err}`));
 
 });
 
+router.post('/login', (req,res) => {
+    const {name, password} = req.body; 
+
+    User.findOne({name: name})
+        .then(user => {
+            
+            if (!user) {
+                // should redirect or something
+            } else {
+                bcrypt.compare(password, user.hash).then((res) => {
+                    // res == true
+                    console.log("welcome sir");
+                });
+            }
+
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`));
+
+});
+
 router.post('/register', (req, res) => {
-    const {name, password, password2} = req.body; // todo validity check
+    const {name, password, password2} = req.body; 
 
     User.findOne({name: name})
     .then((user) => {
@@ -29,7 +49,7 @@ router.post('/register', (req, res) => {
             res.status(400).json('Nope boy');
         } else {
 
-            bcrypt.hash(password, saltRounds, function(err, hash) {
+            bcrypt.hash(password, saltRounds).then( (hash) => { // todo weird this variable isn't used
                 
                 const newUser = new User({name, hash});
 
@@ -37,8 +57,7 @@ router.post('/register', (req, res) => {
             .then(() => res.status(201).json('User registered!'))
             .catch(err => res.status(400).json(`Error: ${err}`));
 
-            })
-            .catch(err => res.status(400).json(`Error: ${err}`));
+            });
         }
     });
 });
