@@ -9,9 +9,6 @@ const app = express();
 const cors = require("cors");
 const mongoose = require('mongoose'); 
 
-app.use(express.json()) // for parsing application/json
-app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
-
 /**
  * Db section
  */
@@ -29,6 +26,8 @@ db.once('open', function() {
 /**
  * Middleware section
  */
+app.use(express.json()) // for parsing application/json
+app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 app.use(cors());
 
 /**

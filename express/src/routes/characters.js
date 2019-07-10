@@ -15,8 +15,19 @@ router.get('/', (req,res) => {
 
 });
 
+router.get('/:characterid', (req,res) => {
+    const id = req.params.characterid;
+
+    Character.find({_id : id})
+        .then(c => res.json(c))
+        .catch(err => res.status(400).json(`Error: ${err}`));
+
+});
+
 router.post('/', (req, res) => {
     const name = req.body.name;
+
+    console.log(name);
 
     const newCharacter = new Character({name});
 
