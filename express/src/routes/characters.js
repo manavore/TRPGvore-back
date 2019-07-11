@@ -35,7 +35,7 @@ router.post('/', (req, res) => {
 
 router.patch('/:characterid', (req,res) => {
     const id = req.params.characterid;
-    const newName = req.body.name;
+    // const newName = req.body.name;
 
     Character.updateOne({_id : id}, {$set: {name: req.body.name }})
         .then(c => res.status(200).json(c))

@@ -1,31 +1,14 @@
 /**
- * @fileoverview Model class of a Character
+ * @fileoverview Schema of a Character
  * @author Póvoa Tiago
  */
 
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-/**
- * Schema of a detail line inside a character
- * @see CharacterSchema
- */
-const detailSchema = new Schema({
-  field: {
-    type: String,
-    required: false,
-    trim: true,
-    minlength: 3
-  },
-  description: {
-    type: String,
-    required: false,
-    trim: true,
-    minlength: 3
-  },
-});
+const detailSchema = require('./character/detail');
+const inventorySchema = require('./character/inventory');
 
-// Creating a schema
 const characterSchema = new Schema(
   {
     name: {
@@ -34,7 +17,8 @@ const characterSchema = new Schema(
       trim: true,
       minlength: 3
     },
-    details: [detailSchema]
+    details: [detailSchema],
+    inventory: inventorySchema // todo should if be required?    
   },
   {
     timestamps: true
