@@ -6,6 +6,25 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+/**
+ * Schema of a detail line inside a character
+ * @see CharacterSchema
+ */
+const detailSchema = new Schema({
+  field: {
+    type: String,
+    required: false,
+    trim: true,
+    minlength: 3
+  },
+  description: {
+    type: String,
+    required: false,
+    trim: true,
+    minlength: 3
+  },
+});
+
 // Creating a schema
 const characterSchema = new Schema(
   {
@@ -15,10 +34,7 @@ const characterSchema = new Schema(
       trim: true,
       minlength: 3
     },
-    details: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Character',
-    }
+    details: [detailSchema]
   },
   {
     timestamps: true
