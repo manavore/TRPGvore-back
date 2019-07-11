@@ -45,7 +45,7 @@ router.patch('/:characterid', (req,res) => {
 router.delete('/:characterid', (req,res) => {
     const id = req.params.characterid;
 
-    Character.remove({_id : id})
+    Character.deleteOne({_id : id})
         .then(c => res.status(200).json(c))
         .catch(err => res.status(400).json(`Error: ${err}`)); // todo maybe the error is too explicit, should be 404 ?
 

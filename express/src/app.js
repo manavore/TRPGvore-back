@@ -35,9 +35,11 @@ app.use(cors());
  */
 const dice =        require('./routes/dice');
 const characters =  require('./routes/characters');
+const stories =     require('./routes/stories');
 
 app.use('/api/dice', dice);
 app.use('/api/characters', characters);
+app.use('/api/stories', stories);
 
 
 const port = process.env.PORT || 3000;
