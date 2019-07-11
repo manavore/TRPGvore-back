@@ -4,7 +4,7 @@
  * @author Póvoa Tiago
  */
 
-const mongoose = require("mongoose");
+const mongoose = require('../../db');
 const Schema = mongoose.Schema;
 
 const inventorySchema = new Schema({

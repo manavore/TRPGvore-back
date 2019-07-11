@@ -8,9 +8,6 @@ const app = express();
 
 const cors = require("cors");
 
-// db
-const mongoose = require('./db');
-
 /**
  * Middleware section
  */
