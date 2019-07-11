@@ -18,7 +18,7 @@ router.get('/', (req,res) => {
 router.get('/:storyid', (req,res) => {
     const id = req.params.storyid;
 
-    Story.find({_id : id})
+    Story.findById({_id : id})
         .then(c => res.json(c))
         .catch(err => res.status(400).json(`Error: ${err}`));
 });
@@ -29,7 +29,7 @@ router.post('/', (req, res) => {
     const newStory = new Story({title, content, chapters});
 
     newStory.save()
-        .then(() => res.status(201).json('Story added!'))
+        .then(savedStory => res.status(201).json({ savedStory }))
         .catch(err => res.status(400).json(`Error: ${err}`));
 });
 

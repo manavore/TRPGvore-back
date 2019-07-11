@@ -7,21 +7,9 @@ const express = require("express");
 const app = express();
 
 const cors = require("cors");
-const mongoose = require('mongoose'); 
 
-/**
- * Db section
- */
-// Warning, hardcoded IP, todo change it
-const uri = 'mongodb://172.17.0.2/test';
-
-mongoose.connect(uri, {useNewUrlParser: true, useCreateIndex: true});
-
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  console.log('Connection successful');
-});
+// db
+const mongoose = require('./db');
 
 /**
  * Middleware section
