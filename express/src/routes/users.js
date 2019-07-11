@@ -46,16 +46,15 @@ router.post('/register', (req, res) => {
     .then((user) => {
         if (user || password.length < 5 || (password !== password2)) {
             console.log("test");
-            res.status(400).json('Nope boy');
+            res.status(400).json('Nope boy'); // todo error code?
         } else {
 
             bcrypt.hash(password, saltRounds).then( (hash) => { // todo weird this variable isn't used
-                
                 const newUser = new User({name, hash});
 
                 newUser.save()
-            .then(() => res.status(201).json('User registered!'))
-            .catch(err => res.status(400).json(`Error: ${err}`));
+                .then(() => res.status(201).json('User registered!'))
+                .catch(err => res.status(400).json(`Error: ${err}`));
 
             });
         }
