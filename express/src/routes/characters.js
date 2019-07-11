@@ -21,13 +21,12 @@ router.get('/:characterid', (req,res) => {
     Character.find({_id : id})
         .then(c => res.json(c))
         .catch(err => res.status(400).json(`Error: ${err}`));
-
 });
 
 router.post('/', (req, res) => {
-    const name = req.body.name;
+    const {name, details} = req.body;
 
-    const newCharacter = new Character({name});
+    const newCharacter = new Character({name, details});
 
     newCharacter.save()
         .then(() => res.status(201).json('Character added!'))

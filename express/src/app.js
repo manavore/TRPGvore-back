@@ -17,7 +17,7 @@ const uri = 'mongodb://172.17.0.2/test';
 
 mongoose.connect(uri, {useNewUrlParser: true, useCreateIndex: true});
 
-let db = mongoose.connection;
+const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log('Connection successful');
@@ -33,8 +33,8 @@ app.use(cors());
 /**
  * Routes section
  */
-const dice = require('./routes/dice');
-const characters = require('./routes/characters');
+const dice =        require('./routes/dice');
+const characters =  require('./routes/characters');
 
 app.use('/api/dice', dice);
 app.use('/api/characters', characters);
