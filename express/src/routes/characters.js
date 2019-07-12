@@ -17,8 +17,14 @@ router.get('/', (req,res) => {
 
 router.get('/:characterid', (req,res) => {
     const id = req.params.characterid;
+    const withDetails = 
+        (req.query.withDetails === 'true' || req.query.withDetails === '1') ? '+details ' : '';
+    const withInventory = 
+        (req.query.withInventory === 'true' || req.query.withInventory === '1') ? '+inventory' : '';
 
     Character.findById({_id : id})
+        .select(`${withDetails} ${withInventory}`)
+        .exec()
         .then(c => res.json(c))
         .catch(err => res.status(400).json(`Error: ${err}`));
 });

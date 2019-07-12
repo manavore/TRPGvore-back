@@ -22,8 +22,14 @@ const characterSchema = new Schema(
       type: Boolean,
       default: true
     },
-    details: [detailSchema],
-    inventory: inventorySchema // todo should if be required?    
+    details: {
+      type: [detailSchema],
+      select: false,
+    },
+    inventory: { // todo should it be required?  
+      type: inventorySchema,        
+      select: false,
+    }
   },
   {
     timestamps: true
