@@ -3,7 +3,7 @@
  * @author Póvoa Tiago
  */
 
-const mongoose = require('../db');
+const mongoose = require('mongoose'); 
 const Schema = mongoose.Schema;
 
 const detailSchema = require('./character/detail');
@@ -15,7 +15,12 @@ const characterSchema = new Schema(
       type: String,
       required: true,
       trim: true,
-      minlength: 3
+      minlength: 3,
+      maxlength: 30
+    },
+    alive: {
+      type: Boolean,
+      default: true
     },
     details: [detailSchema],
     inventory: inventorySchema // todo should if be required?    
