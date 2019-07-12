@@ -2,21 +2,31 @@
  * @fileoverview Model class of a die
  * @author Póvoa Tiago
  */
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const chance = require("chance").Chance();
 
-const Chance = require("chance");
-const chance = Chance();
+const dieSchema = new Schema(
+  {
+    value: {
+      type: [Number],
+      required: true,
+    },
+    owner: {
+      type: Schema.Types.ObjectId,
+      default: null
+    }
+  },
+  {
+    timestamps: true
+  }
+);
 
-module.exports = class Die {
-    constructor() {
-        this.value = chance.rpg('1d20');
-        this.owner = "anon";
-    }
+dieSchema.pre('save', function roll(next) {
+    this.value = chance.rpg("1d20");
+    next();
+});
 
-    roll() {
-        this.value = chance.rpg('1d20'); 
-    }
-    
-    setOwner(owner) {
-        this.owner = owner;
-    }
-}
+// Creating a model
+const Die = mongoose.model("Die", dieSchema);
+module.exports = Die;

@@ -38,5 +38,4 @@ const characterSchema = new Schema(
 
 // Creating a model
 const Character = mongoose.model("Character", characterSchema);
-
 module.exports = Character;
