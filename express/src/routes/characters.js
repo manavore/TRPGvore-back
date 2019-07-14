@@ -45,9 +45,15 @@ router.patch("/:characterid", (req, res) => {
   const id = req.params.characterid;
   // const newName = req.body.name; // todo fix this
 
-  Character.updateOne({ _id: id }, { $set: req.body })
-    .then(c => res.status(200).json(c))
-    .catch(err => res.status(400).json(`Error: ${err}`)); // todo maybe the error is too explicit, should be 404 ?
+  Character.findById({ _id: id })
+  .then(c => {
+    c.set(req.body);
+
+    c.save()
+    .then(savedC => res.status(201).json( savedC ))
+    .catch(err => res.status(400).json(`Error: ${err}`));
+  })
+  .catch(err => res.status(404).json(`Error: ${err}`));
 });
 
 router.delete("/:characterid", (req, res) => {

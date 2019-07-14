@@ -36,14 +36,16 @@ router.post("/", (req, res) => {
 
 router.put("/:dieid", (req, res) => {
   const id = req.params.dieid;
-  const ownerid = req.body.ownerid;
+  const ownerid = req.body.owner;
 
-  Die.updateOne(
-    { _id: id },
-    { $set: { value: chance.rpg("1d20"), owner: ownerid } }
-  )
-    .then(c => res.status(200).json(c))
-    .catch(err => res.status(400).json(`Error: ${err}`)); // todo maybe the error is too explicit, should be 404 ?
+  Die.findById({ _id: id })
+  .then(d => {
+    d.owner = ownerid
+    d.save()
+    .then(savedDie => res.status(201).json( savedDie ))
+    .catch(err => res.status(400).json(`Error: ${err}`));
+  })
+  .catch(err => res.status(404).json(`Error: ${err}`));
 });
 
 router.delete("/:dieid", (req, res) => {

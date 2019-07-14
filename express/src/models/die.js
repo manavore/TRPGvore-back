@@ -10,21 +10,21 @@ const dieSchema = new Schema(
   {
     value: {
       type: [Number],
-      required: true,
+      required: true
     },
     owner: {
       type: Schema.Types.ObjectId,
       default: null
-    }
+    },
   },
   {
     timestamps: true
   }
 );
 
-dieSchema.pre('save', function roll(next) {
-    this.value = chance.rpg("1d20");
-    next();
+dieSchema.pre("save", function roll(next) {
+  this.value = chance.rpg("1d20");
+  next();
 });
 
 // Creating a model
