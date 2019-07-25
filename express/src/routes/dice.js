@@ -42,7 +42,7 @@ router.put("/:dieid", (req, res) => {
   .then(d => {
     d.owner = ownerid
     d.save()
-    .then(savedDie => res.status(201).json( savedDie ))
+    .then(savedDie => res.status(202).json( savedDie ))
     .catch(err => res.status(400).json(`Error: ${err}`));
   })
   .catch(err => res.status(404).json(`Error: ${err}`));

@@ -18,7 +18,7 @@ const detailSchema = new Schema({
     type: String,
     required: false,
     trim: true,
-    minlength: 3
+    minlength: 0
   },
 });
 

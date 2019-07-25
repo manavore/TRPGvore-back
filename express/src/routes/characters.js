@@ -50,7 +50,7 @@ router.patch("/:characterid", (req, res) => {
     c.set(req.body);
 
     c.save()
-    .then(savedC => res.status(201).json( savedC ))
+    .then(savedC => res.status(202).json( savedC ))
     .catch(err => res.status(400).json(`Error: ${err}`));
   })
   .catch(err => res.status(404).json(`Error: ${err}`));
