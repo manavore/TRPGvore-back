@@ -6,7 +6,7 @@
 const mongoose = require('mongoose'); 
 
 // Warning, hardcoded IP, todo change it
-const uri = 'mongodb://172.17.0.2/test';
+const uri = process.env.DB_URL;
 
 mongoose.connect(uri, {useNewUrlParser: true, useCreateIndex: true});
 
