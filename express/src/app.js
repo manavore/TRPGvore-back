@@ -7,38 +7,25 @@ const express = require("express");
 const app = express();
 
 const cors = require("cors");
-const mongoose = require('mongoose'); 
-
-app.use(express.json()) // for parsing application/json
-app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
-
-/**
- * Db section
- */
-// Warning, hardcoded IP, todo change it
-const uri = 'mongodb://172.17.0.2/test';
-
-mongoose.connect(uri, {useNewUrlParser: true, useCreateIndex: true});
-
-let db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  console.log('Connection successful');
-});
+const db = require('./db');
 
 /**
  * Middleware section
  */
+app.use(express.json()) // for parsing application/json
+app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 app.use(cors());
 
 /**
  * Routes section
  */
-const dice = require('./routes/dice');
-const characters = require('./routes/characters');
+const dice =        require('./routes/dice');
+const characters =  require('./routes/characters');
+const stories =     require('./routes/stories');
 
 app.use('/api/dice', dice);
 app.use('/api/characters', characters);
+app.use('/api/stories', stories);
 
 
 const port = process.env.PORT || 3000;
