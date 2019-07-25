@@ -7,7 +7,6 @@ const express = require("express");
 const app = express();
 
 const cors = require("cors");
-const mongoose = require('mongoose'); 
 const helmet = require('helmet');
 const passport = require('passport');
 const BearerStrategy = require('passport-http-bearer');
@@ -18,21 +17,14 @@ app.use(express.urlencoded({ extended: true })) // for parsing application/x-www
 /**
  * Db section
  */
-// Warning, hardcoded IP, todo change it
-const uri = 'mongodb://172.17.0.2/test';
-
-mongoose.connect(uri, {useNewUrlParser: true, useCreateIndex: true});
-
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  console.log('Connection successful');
-});
+const db = require('./db');
 
 /**
  * Middleware section
  */
 app.use(helmet());
+app.use(express.json()) // for parsing application/json
+app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 app.use(cors());
 
 passport.use(new BearerStrategy(
@@ -48,13 +40,15 @@ passport.use(new BearerStrategy(
 /**
  * Routes section
  */
-const dice = require('./routes/dice');
-const users = require('./routes/users');
-const characters = require('./routes/characters');
+const users =       require('./routes/users');
+const dice =        require('./routes/dice');
+const characters =  require('./routes/characters');
+const stories =     require('./routes/stories');
 
 app.use('/auth', users);
 app.use('/api/dice', dice);
 app.use('/api/characters', characters);
+app.use('/api/stories', stories);
 
 
 const port = process.env.PORT || 3000;
