@@ -5,7 +5,11 @@
 
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const JWTStrategy = require('passport-jwt').Strategy;
+const ExtractJWT = require('passport-jwt').ExtractJwt;
+
 const User = require('../models/user');
+
 
 // User registration handler
 passport.use(
@@ -29,6 +33,7 @@ passport.use(
   ),
 );
 
+// User login handler
 passport.use('login', new LocalStrategy({
   usernameField: 'name',
   passwordField: 'password',
@@ -50,5 +55,18 @@ passport.use('login', new LocalStrategy({
     return done(null, user, { message: 'Logged in Successfully' });
   } catch (error) {
     return done(error);
+  }
+}));
+
+passport.use(new JWTStrategy({
+  // the extractjwt will check Authorization Header BearerToken
+  jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+  secretOrKey: process.env.TOKEN_SECRET,
+}, async (jwtPayload, cb) => {
+  try {
+    const user = await User.findOne(jwtPayload.name);
+    return cb(null, user);
+  } catch (err) {
+    return cb(err);
   }
 }));

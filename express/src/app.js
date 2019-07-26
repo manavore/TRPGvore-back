@@ -40,7 +40,7 @@ const stories = require('./routes/stories');
 app.use('/auth', users);
 app.use('/api/dice', dice);
 app.use('/api/characters', characters);
-app.use('/api/stories', stories);
+app.use('/api/stories', passport.authenticate('jwt', { session: false }), stories);
 
 /**
  * Port and listen
