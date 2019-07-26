@@ -6,13 +6,10 @@
 const express = require('express');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
 
 const User = require('../models/user');
 
 const router = express.Router();
-
-const saltRounds = 10; // Hashing salt rounds
 
 router.get('/', (req, res) => {
   // todo remove it because it's sneaky dangerous x)

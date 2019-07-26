@@ -26,7 +26,6 @@ app.use(express.urlencoded({ extended: false })); // for parsing application/x-w
 app.use(cors());
 app.use(passport.initialize());
 
-
 require('./auth/auth');
 
 /**

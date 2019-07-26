@@ -3,8 +3,9 @@
  * @author Póvoa Tiago
  */
 
-const mongoose = require('mongoose'); 
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+
+const { Schema } = mongoose;
 
 const detailSchema = require('./character/detail');
 const inventorySchema = require('./character/inventory');
@@ -16,26 +17,26 @@ const characterSchema = new Schema(
       required: true,
       trim: true,
       minlength: 3,
-      maxlength: 30
+      maxlength: 30,
     },
     alive: {
       type: Boolean,
-      default: true
+      default: true,
     },
     details: {
       type: [detailSchema],
       select: false,
     },
-    inventory: { // todo should it be required?  
-      type: inventorySchema,        
+    inventory: { // todo should it be required?
+      type: inventorySchema,
       select: false,
-    }
+    },
   },
   {
-    timestamps: true
-  }
+    timestamps: true,
+  },
 );
 
 // Creating a model
-const Character = mongoose.model("Character", characterSchema);
+const Character = mongoose.model('Character', characterSchema);
 module.exports = Character;

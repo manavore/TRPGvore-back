@@ -46,7 +46,7 @@ router.patch('/:characterid', (req, res) => {
   // const newName = req.body.name; // todo fix this
 
   Character.findById({ _id: id })
-    .then(c => {
+    .then((c) => {
       c.set(req.body);
 
       c.save()
