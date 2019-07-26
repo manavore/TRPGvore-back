@@ -25,14 +25,25 @@
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "helmet": "^3.18.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.6.3",
     "passport": "^0.4.0",
-    "passport-http-bearer": "^1.0.1"
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
-    "nodemon": "^1.19.1",
     "chai": "^4.2.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-config-node": "^4.0.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-prettier": "^3.1.0",
     "mocha": "^6.1.4",
+    "nodemon": "^1.19.1",
+    "prettier": "^1.18.2",
     "supertest": "^4.0.2"
   }
 }
