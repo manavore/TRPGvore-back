@@ -31,12 +31,14 @@ require('./auth/auth');
 /**
  * Routes section
  */
+const connect = require('./routes/connect');
 const users = require('./routes/users');
 const dice = require('./routes/dice');
 const characters = require('./routes/characters');
 const stories = require('./routes/stories');
 
-app.use('/auth', users);
+app.use('/auth', connect);
+app.use('/api/users', users);
 app.use('/api/dice', dice);
 app.use('/api/characters', characters);
 app.use('/api/stories', passport.authenticate('jwt', { session: false }), stories);

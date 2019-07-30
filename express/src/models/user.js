@@ -24,11 +24,14 @@ const userSchema = new Schema(
       required: true,
       trim: true,
       minlength: 3,
-      // select: false,
+      select: false,
     },
     characters: {
-      type: [mongoose.Schema.Types.ObjectId],
-      ref: 'Character',
+      type: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Character',
+      },
+      ],
     },
     dice: {
       type: mongoose.Schema.Types.ObjectId,
@@ -40,11 +43,13 @@ const userSchema = new Schema(
   },
 );
 
+/*
 // eslint-disable-next-line func-names
 userSchema.pre('save', async function (next) {
   this.password = await bcrypt.hash(this.password, saltRounds);
   next();
 });
+*/
 
 // eslint-disable-next-line func-names
 userSchema.methods.isValidPassword = async function (password) {
@@ -55,3 +60,9 @@ userSchema.methods.isValidPassword = async function (password) {
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;
+
+module.exports.createUser = async function f(u) {
+  const hash = await bcrypt.hash(u.password, saltRounds);
+  u.set({ password: hash });
+  return u.save();
+};
