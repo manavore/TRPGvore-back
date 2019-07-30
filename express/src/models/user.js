@@ -7,7 +7,6 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const { Schema } = mongoose;
-// Hash passwords
 const saltRounds = 10;
 
 // Creating a schema
@@ -27,19 +26,29 @@ const userSchema = new Schema(
       minlength: 3,
       // select: false,
     },
+    characters: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: 'Character',
+    },
+    dice: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Die',
+    },
   },
   {
     timestamps: true,
   },
 );
 
+// eslint-disable-next-line func-names
 userSchema.pre('save', async function (next) {
   this.password = await bcrypt.hash(this.password, saltRounds);
   next();
 });
 
+// eslint-disable-next-line func-names
 userSchema.methods.isValidPassword = async function (password) {
-  return await bcrypt.compare(password, this.password);
+  return bcrypt.compare(password, this.password);
 };
 
 // Creating a model

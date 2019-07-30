@@ -5,6 +5,8 @@
 
 const express = require('express');
 const Character = require('../models/character');
+const User = require('../models/user');
+
 
 const router = express.Router();
 
@@ -38,6 +40,26 @@ router.post('/', (req, res) => {
   newCharacter
     .save()
     .then(savedCharacter => res.status(201).json({ savedCharacter }))
+    .catch(err => res.status(400).json(`Error: ${err}`));
+});
+
+router.post('/:userid', (req, res) => {
+  const { name, details } = req.body;
+  const id = req.params.userid;
+
+  const newCharacter = new Character({ name, details });
+
+
+  newCharacter
+    .save()
+    .then((savedCharacter) => {
+      // eslint-disable-next-line no-underscore-dangle
+      const charaid = savedCharacter._id;
+      // todo throw error if not found?
+      User.findByIdAndUpdate({ _id: id }, { $push: { characters: charaid } });
+
+      res.status(201).json({ savedCharacter });
+    })
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 

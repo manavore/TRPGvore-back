@@ -16,6 +16,7 @@ const dieSchema = new Schema(
     owner: {
       type: Schema.Types.ObjectId,
       default: null,
+      ref: 'User',
     },
   },
   {

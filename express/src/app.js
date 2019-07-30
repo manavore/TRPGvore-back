@@ -9,7 +9,7 @@ const app = express();
 
 require('dotenv').config();
 const cors = require('cors');
-// const helmet = require('helmet');
+const helmet = require('helmet');
 const passport = require('passport');
 
 /**
@@ -20,7 +20,7 @@ require('./db');
 /**
  * Middleware section
  */
-// app.use(helmet());
+app.use(helmet());
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: false })); // for parsing application/x-www-form-urlencoded
 app.use(cors());

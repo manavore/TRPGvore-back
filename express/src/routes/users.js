@@ -39,17 +39,33 @@ router.post('/login', async (req, res, next) => {
         if (error) {
           return res.status(401).body(error);
         }
-        // We don't want to store the sensitive information such as the
-        // user password in the token so we pick only the email and id
 
-        const token = jwt.sign({ user }, process.env.TOKEN_SECRET); // todo maybe hide this secret??
+        const token = jwt.sign({ user }, process.env.TOKEN_SECRET, { expiresIn: '1h' }); // todo maybe hide this secret??
         // Send back the token to the user
-        return res.json({ token });
+        return res.status(202).send({ token, user });
       });
     } catch (error) {
       return next(error);
     }
   })(req, res, next);
+});
+
+router.patch('/:userid', (req, res) => {
+  const id = req.params.userid;
+  const { characterid, diceid } = req.body;
+
+  User.findById({ _id: id })
+    .then((u) => {
+      u.characters.push(characterid);
+
+      if (diceid) {
+        u.set({ dice: diceid });
+      }
+
+      u.save();
+      res.status(202).json(u);
+    })
+    .catch(err => res.status(404).json(`Error: ${err}`));
 });
 
 module.exports = router;

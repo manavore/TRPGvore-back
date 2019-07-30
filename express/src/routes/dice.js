@@ -40,7 +40,7 @@ router.put('/:dieid', (req, res) => {
 
   Die.findById({ _id: id })
     .then((d) => {
-      d.owner = ownerid; // todo change this
+      d.set({ owner: ownerid }); // todo change this
       d.save()
         .then(savedDie => res.status(202).json(savedDie))
         .catch(err => res.status(400).json(`Error: ${err}`));
