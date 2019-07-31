@@ -15,10 +15,6 @@ router.get('/', (req, res) => {
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
-/**
- * get User
- * Options: Characters, Dice
- */
 router.get('/:userid', (req, res) => {
   const id = req.params.userid;
   const withDice = req.query.withDice === 'true' || req.query.withDice === '1'
@@ -44,7 +40,9 @@ router.patch('/:userid', (req, res) => {
 
   User.findById({ _id: id })
     .then((u) => {
-      u.characters.push(characterid);
+      if (characterid) {
+        u.characters.push(characterid);
+      }
 
       if (diceid) {
         u.set({ dice: diceid });
@@ -54,6 +52,14 @@ router.patch('/:userid', (req, res) => {
       res.status(202).json(u);
     })
     .catch(err => res.status(404).json(`Error: ${err}`));
+});
+
+router.delete('/:userid', (req, res) => {
+  const id = req.params.userid;
+
+  User.deleteOne({ _id: id })
+    .then(c => res.status(202).json(c))
+    .catch(err => res.status(400).json(`Error: ${err}`)); // todo maybe the error is too explicit, should be 404 ?
 });
 
 module.exports = router;

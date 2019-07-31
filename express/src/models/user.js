@@ -36,6 +36,7 @@ const userSchema = new Schema(
     dice: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Die',
+      default: null,
     },
   },
   {
