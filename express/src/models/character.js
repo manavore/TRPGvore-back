@@ -9,6 +9,7 @@ const { Schema } = mongoose;
 
 const detailSchema = require('./character/detail');
 const inventorySchema = require('./character/inventory');
+const detailsDefault = require('./default.conf/details.default');
 
 const characterSchema = new Schema(
   {
@@ -26,6 +27,7 @@ const characterSchema = new Schema(
     details: {
       type: [detailSchema],
       select: false,
+      default: detailsDefault,
     },
     inventory: { // todo should it be required?
       type: inventorySchema,

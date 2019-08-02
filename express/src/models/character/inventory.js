@@ -12,6 +12,7 @@ const inventorySchema = new Schema({
   fortune: {
     type: Number,
     min: 0,
+    default: 0,
   },
   equipements: [{ name: String, description: String, quantity: Number }],
 });
