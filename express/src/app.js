@@ -3,30 +3,48 @@
  * @author Póvoa Tiago
  */
 
-const express = require("express");
+const express = require('express');
+
 const app = express();
 
-const cors = require("cors");
-const db = require('./db');
+require('dotenv').config();
+const cors = require('cors');
+const helmet = require('helmet');
+const passport = require('passport');
+
+/**
+ * Db section
+ */
+require('./db');
 
 /**
  * Middleware section
  */
-app.use(express.json()) // for parsing application/json
-app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+app.use(helmet());
+app.use(express.json()); // for parsing application/json
+app.use(express.urlencoded({ extended: false })); // for parsing application/x-www-form-urlencoded
 app.use(cors());
+app.use(passport.initialize());
+
+require('./auth/auth');
 
 /**
  * Routes section
  */
-const dice =        require('./routes/dice');
-const characters =  require('./routes/characters');
-const stories =     require('./routes/stories');
+const connect = require('./routes/connect');
+const users = require('./routes/users');
+const dice = require('./routes/dice');
+const characters = require('./routes/characters');
+const stories = require('./routes/stories');
 
+app.use('/auth', connect);
+app.use('/api/users', users);
 app.use('/api/dice', dice);
 app.use('/api/characters', characters);
-app.use('/api/stories', stories);
+app.use('/api/stories', passport.authenticate('jwt', { session: false }), stories);
 
-
-const port = process.env.PORT || 3000;
+/**
+ * Port and listen
+ */
+const port = process.env.PORT;
 app.listen(port, () => console.log(`Server is listening on port: ${port}`));

@@ -4,7 +4,8 @@
  */
 
 const mongoose = require('mongoose'); 
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 
 const storySchema = new Schema(
   {
@@ -12,24 +13,24 @@ const storySchema = new Schema(
       type: String,
       required: true,
       trim: true,
-      minlength: 3
+      minlength: 3,
     },
     content: {
       type: String,
       required: true,
       trim: true,
-      minlength: 3
-    }
+      minlength: 3,
+    },
     // todo - we can add other stories to a story,
     // Though we should check if order is preserved or not.
     // chapters: [{type: mongoose.Schema.Types.ObjectId, ref: 'Story'}]
   },
   {
-    timestamps: true
-  }
+    timestamps: true,
+  },
 );
 
 // Creating a model
-const Story = mongoose.model("Story", storySchema);
+const Story = mongoose.model('Story', storySchema);
 
 module.exports = Story;

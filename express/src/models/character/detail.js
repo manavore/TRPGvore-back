@@ -4,21 +4,22 @@
  * @author Póvoa Tiago
  */
 
-const mongoose = require('mongoose'); 
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+
+const { Schema } = mongoose;
 
 const detailSchema = new Schema({
   field: {
     type: String,
     required: false,
     trim: true,
-    minlength: 3
+    minlength: 3,
   },
   description: {
     type: String,
     required: false,
     trim: true,
-    minlength: 0
+    minlength: 0,
   },
 });
 
