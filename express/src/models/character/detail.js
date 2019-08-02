@@ -14,12 +14,14 @@ const detailSchema = new Schema({
     required: false,
     trim: true,
     minlength: 3,
+    maxlength: 20,
   },
   description: {
     type: String,
     required: false,
     trim: true,
     minlength: 0,
+    maxlength: 50,
   },
 });
 
