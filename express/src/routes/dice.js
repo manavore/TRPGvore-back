@@ -10,7 +10,12 @@ const Die = require('../models/die');
 const router = express.Router();
 
 router.get('/', (req, res) => {
+  const withOwner = req.query.withOwner === 'true' || req.query.withOwner === '1'
+    ? 'owner'
+    : '';
+
   Die.find()
+    .populate({ path: withOwner, select: 'name' })
     .then(c => res.json(c))
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
@@ -36,11 +41,11 @@ router.post('/', (req, res) => {
 
 router.put('/:dieid', (req, res) => {
   const id = req.params.dieid;
-  const ownerid = req.body.owner;
+  // const ownerid = req.body.owner;
 
   Die.findById({ _id: id })
     .then((d) => {
-      d.set({ owner: ownerid }); // todo change this
+      d.set({ value: [] }); // todo change this
       d.save()
         .then(savedDie => res.status(202).json(savedDie))
         .catch(err => res.status(400).json(`Error: ${err}`));

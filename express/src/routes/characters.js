@@ -24,9 +24,12 @@ router.get('/:characterid', (req, res) => {
   const withInventory = req.query.withInventory === 'true' || req.query.withInventory === '1'
     ? '+inventory'
     : '';
+  const withAbilities = req.query.withAbilities === 'true' || req.query.withAbilities === '1'
+    ? '+abilities'
+    : '';
 
   Character.findById({ _id: id })
-    .select(`${withDetails} ${withInventory}`)
+    .select(`${withDetails} ${withInventory} ${withAbilities}`)
     .exec()
     .then(c => res.json(c))
     .catch(err => res.status(400).json(`Error: ${err}`));
@@ -84,6 +87,18 @@ router.delete('/:characterid', (req, res) => {
   Character.deleteOne({ _id: id })
     .then(c => res.status(200).json(c))
     .catch(err => res.status(400).json(`Error: ${err}`)); // todo maybe the error is too explicit, should be 404 ?
+});
+
+// Specific
+
+router.get('/:characterid/:what', (req, res) => {
+  const { characterid, what } = req.params;
+
+  Character.findById({ _id: characterid })
+    .select(`+${what}`)
+    .exec()
+    .then(c => res.json(c))
+    .catch(err => res.status(404).json(`Error: ${err}`));
 });
 
 module.exports = router;
