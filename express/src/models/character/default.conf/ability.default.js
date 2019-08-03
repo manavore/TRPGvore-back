@@ -6,34 +6,34 @@
 module.exports = [
   {
     name: 'Force',
-    score: 1,
+    score: 11,
   },
   {
     name: 'Endurance',
-    score: 1,
+    score: 11,
   },
   {
     name: 'Agilité',
-    score: 1,
+    score: 11,
   },
   {
     name: 'Précision',
-    score: 1,
+    score: 11,
   },
   {
     name: 'Instinct',
-    score: 1,
+    score: 11,
   },
   {
     name: 'Intelligence',
-    score: 1,
+    score: 11,
   },
   {
     name: 'Empathie',
-    score: 1,
+    score: 11,
   },
   {
     name: 'Volonté',
-    score: 1,
+    score: 11,
   },
 ];
