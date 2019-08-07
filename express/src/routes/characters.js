@@ -28,8 +28,12 @@ router.get('/:characterid', (req, res) => {
     ? '+abilities'
     : '';
 
+  const withHealth = req.query.withHealth === 'true' || req.query.withHealth === '1'
+    ? '+health'
+    : '';
+
   Character.findById({ _id: id })
-    .select(`${withDetails} ${withInventory} ${withAbilities}`)
+    .select(`${withDetails} ${withInventory} ${withAbilities} ${withHealth}`)
     .exec()
     .then(c => res.json(c))
     .catch(err => res.status(400).json(`Error: ${err}`));

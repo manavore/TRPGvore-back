@@ -13,6 +13,20 @@ const dieSchema = new Schema(
       type: [Number],
       required: true,
     },
+    number: {
+      type: Number,
+      required: true,
+      default: 1,
+      min: 1,
+      max: 10,
+    },
+    kind: {
+      type: Number,
+      required: true,
+      default: 20,
+      min: 4,
+      max: 100,
+    },
     owner: {
       type: Schema.Types.ObjectId,
       default: null,
@@ -25,7 +39,7 @@ const dieSchema = new Schema(
 );
 
 dieSchema.pre('save', function roll(next) {
-  this.value = chance.rpg('1d20');
+  this.value = chance.rpg(`${this.number}d${this.kind}`);
   next();
 });
 

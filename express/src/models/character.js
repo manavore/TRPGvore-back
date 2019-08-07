@@ -41,6 +41,16 @@ const characterSchema = new Schema(
       type: inventorySchema,
       select: false,
     },
+    health: {
+      type: [{
+        type: Number,
+        min: 0,
+        max: 3,
+      }],
+      default: [0, 0, 0, 0, 0, 0, 0],
+      required: true,
+      select: false,
+    },
   },
   {
     timestamps: true,
