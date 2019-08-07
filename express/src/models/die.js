@@ -40,6 +40,7 @@ const dieSchema = new Schema(
 
 dieSchema.pre('save', function roll(next) {
   this.value = chance.rpg(`${this.number}d${this.kind}`);
+
   next();
 });
 
