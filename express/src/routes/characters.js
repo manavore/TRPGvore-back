@@ -21,19 +21,28 @@ router.get('/:characterid', (req, res) => {
   const withDetails = req.query.withDetails === 'true' || req.query.withDetails === '1'
     ? '+details '
     : '';
+  const withDetailsExt = req.query.withDetailsExt === 'true' || req.query.withDetailsExt === '1'
+    ? '+detailsExt '
+    : '';
   const withInventory = req.query.withInventory === 'true' || req.query.withInventory === '1'
     ? '+inventory'
     : '';
   const withAbilities = req.query.withAbilities === 'true' || req.query.withAbilities === '1'
     ? '+abilities'
     : '';
-
+  const withSkills = req.query.withSkills === 'true' || req.query.withSkills === '1'
+    ? '+skills'
+    : '';
   const withHealth = req.query.withHealth === 'true' || req.query.withHealth === '1'
     ? '+health'
     : '';
 
   Character.findById({ _id: id })
-    .select(`${withDetails} ${withInventory} ${withAbilities} ${withHealth}`)
+    .select(
+      `${withDetails} ${withDetailsExt} 
+      ${withInventory} ${withAbilities} 
+      ${withHealth} ${withSkills}`,
+    )
     .exec()
     .then(c => res.json(c))
     .catch(err => res.status(400).json(`Error: ${err}`));

@@ -10,7 +10,9 @@ const { Schema } = mongoose;
 const detailSchema = require('./character/detail');
 const abilitySchema = require('./character/ability');
 const inventorySchema = require('./character/inventory');
+const skillSchema = require('./character/skill');
 const detailsDefault = require('./character/default.conf/details.default');
+const detailsextDefault = require('./character/default.conf/detailsext.default');
 const abilityDefault = require('./character/default.conf/ability.default');
 
 
@@ -32,6 +34,11 @@ const characterSchema = new Schema(
       select: false,
       default: detailsDefault,
     },
+    detailsExt: {
+      type: [detailSchema],
+      select: false,
+      default: detailsextDefault,
+    },
     abilities: {
       type: [abilitySchema],
       select: false,
@@ -40,6 +47,19 @@ const characterSchema = new Schema(
     inventory: { // todo should it be required?
       type: inventorySchema,
       select: false,
+      default: {
+        fortune: 0,
+      },
+    },
+    skills: {
+      type: [skillSchema],
+      select: false,
+      default: [{
+        name: 'Perception',
+        effect: 'Vos sens en éveille, vous tentez de pércevoir autour de vous. INSTINCT',
+        bonus: '',
+        type: 'Actif',
+      }],
     },
     health: {
       type: [{
@@ -47,7 +67,7 @@ const characterSchema = new Schema(
         min: 0,
         max: 3,
       }],
-      default: [0, 0, 0, 0, 0, 0, 0],
+      default: [0, 0, 0, 0, 0],
       required: true,
       select: false,
     },
