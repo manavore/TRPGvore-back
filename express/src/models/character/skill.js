@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const equipementSchema = new Schema({
+const skillSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -28,31 +28,15 @@ const equipementSchema = new Schema({
     minlength: 0,
     maxlength: 100,
   },
-  quantity: {
-    type: Number,
+  type: {
+    type: String,
     required: true,
-    min: 0,
-    max: 1000000,
-    default: 1,
+    trim: true,
+    minlength: 0,
+    maxlength: 100,
+    default: 'Actif',
+    enum: ['Actif', 'Passif'],
   },
 });
 
-const inventorySchema = new Schema({
-  fortune: {
-    type: Number,
-    min: 0,
-    max: 1000000,
-    default: 1,
-  },
-  equipements: {
-    type: [equipementSchema],
-    default: [{
-      name: 'Sac à dos',
-      effect: 'spacieux et comfortable',
-      bonus: '',
-      quantity: 1,
-    }],
-  },
-});
-
-module.exports = inventorySchema;
+module.exports = skillSchema;

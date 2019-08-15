@@ -36,4 +36,8 @@ module.exports = [
     name: 'Volonté',
     score: 11,
   },
+  {
+    name: 'Arcane',
+    score: 1,
+  },
 ];

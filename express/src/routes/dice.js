@@ -41,11 +41,14 @@ router.post('/', (req, res) => {
 
 router.put('/:dieid', (req, res) => {
   const id = req.params.dieid;
-  // const ownerid = req.body.owner;
+  let { number, kind } = req.body;
+
+  number = number || 1;
+  kind = kind || 20;
 
   Die.findById({ _id: id })
     .then((d) => {
-      d.set({ value: [] }); // todo change this
+      d.set({ number, kind, value: 0 }); // todo change this
       d.save()
         .then(savedDie => res.status(202).json(savedDie))
         .catch(err => res.status(400).json(`Error: ${err}`));

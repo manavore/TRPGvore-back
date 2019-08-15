@@ -5,23 +5,31 @@
 
 module.exports = [
   {
-    field: 'Âge',
+    field: 'Expression',
     description: '',
   },
   {
-    field: 'Taille',
+    field: 'Niv. technologique',
     description: '',
   },
   {
-    field: 'Corpulence',
+    field: 'Instruction',
     description: '',
   },
   {
-    field: 'Genre',
+    field: 'Langues',
     description: '',
   },
   {
-    field: 'Apparence',
+    field: 'Croyances',
+    description: '',
+  },
+  {
+    field: 'Statut social',
+    description: '',
+  },
+  {
+    field: 'Réputation',
     description: '',
   },
 ];
