@@ -1,0 +1,18 @@
+variables:
+  CONTAINER_RELEASE_NAME: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
+
+stages:
+  - build
+
+build_node_js_application:
+  stage: build
+  image: docker:stable
+  services:
+    - docker:dind
+  tags:
+    - docker
+  script:
+    - docker login registry.gitlab.com/trpgvore/backend -u "github" -p "$REGISTRY_TOKEN"
+    - docker pull $CONTAINER_RELEASE_NAME || true
+    - docker build --cache-from $CONTAINER_RELEASE_NAME --tag $CONTAINER_RELEASE_NAME -f express/Dockerfile .
+    - docker push $CONTAINER_RELEASE_NAME
