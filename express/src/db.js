@@ -3,7 +3,7 @@
  * @author Póvoa Tiago
  */
 
-const mongoose = require('mongoose'); 
+const mongoose = require('mongoose');
 
 // Warning, hardcoded IP, todo change it
 const uri = process.env.DB_URL;

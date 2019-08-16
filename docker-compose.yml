@@ -8,6 +8,8 @@ services:
       - "3001:3000"
     links:
       - mongo
+    env_file:
+      - build.env
   mongo:
     container_name: mongo
     image: mongo
